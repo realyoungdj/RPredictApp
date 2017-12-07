@@ -21,7 +21,7 @@
     	            text: 'Predict Mileage'
     	        },
     	        xAxis: {
-    	        		categories: ['Cars']
+    	        		categories: ['Cars'],
     	            crosshair: true
     	        },
     	        yAxis: {
@@ -50,9 +50,8 @@
 		</tr>
 		<tr>
 			<td>
-				<h:commandButton value="Show"
+				<h:commandButton value="Predict"
 					onclick="showChart(#{rPredictBean.predictResult})">
-					<!-- AJAX -->
 					<f:ajax event="click" />
 				</h:commandButton>
 			</td>
@@ -61,14 +60,12 @@
 				</h:commandButton></td>				
 		</tr>
 	</table>
-	</h:form>
 	<h:outputLabel>
 			<h:outputText id="showInput" value="#{rPredictBean.inputCarWeightString}" />
 	</h:outputLabel>
-	
-<!-- Show R Predict -->
-	<h:form>
-		<div id="container" style="width: 100%; height: 600px;"></div>
+	<div id="container" style="width: 100%; height: 600px;"></div>
 	</h:form>
+	
+	
 </h:body>
 </html>

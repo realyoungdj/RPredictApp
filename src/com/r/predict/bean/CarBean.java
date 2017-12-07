@@ -1,12 +1,14 @@
 package com.r.predict.bean;
 
+import java.util.List;
+
 public class CarBean {
 	private String name;
-	private double mileage;
+	private List<Double> data;
 	
-	public CarBean(String name, double mileage) {
+	public CarBean(String name, List<Double> data) {
 		this.name = name;
-		this.mileage = mileage;
+		this.data = data;
 	}
 	
 	public String getName() {
@@ -17,12 +19,12 @@ public class CarBean {
 		this.name = name;
 	}
 	
-	public double getMileage() {
-		return this.mileage;
+	public List<Double> getData() {
+		return this.data;
 	}
 	
-	public void setMileage(double mileage) {
-		this.mileage = mileage;
+	public void setMileage(List<Double> data) {
+		this.data = data;
 	}
 
 }

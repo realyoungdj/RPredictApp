@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 @ManagedBean(name="rPredictBean")
 public class RPredictBean {
 	private RConnection rc;
-	private List<CarBean> carData;
+
 	private double carWeight;
 	private String inputCarWeightString;
 	private String showCarWeightString;
@@ -75,7 +75,7 @@ public class RPredictBean {
 	}
 	
 	private void initData() {
-		this.carData = new ArrayList<>();
+
 		this.inputCarWeightString = "Input Car Weight: ";
 		this.showCarWeightString = "";
 	}
@@ -107,11 +107,10 @@ public class RPredictBean {
 		return this.showCarWeightString;
 	}
 	
-	public void setPredictResult(String predictResult) {
-		this.predictResult = predictResult;
-	}
 	
 	public String getPredictResult() {
+		System.out.println("Load getPredictResult()");
+		List<CarBean> carData = new ArrayList<>();
 		try {
 			rc.eval("new.df <- data.frame(Weight=c(1.54, 2.33, 1.70))");
 			REXP x = rc.eval("predict(model, new.df)");
@@ -120,7 +119,10 @@ public class RPredictBean {
 				double tmp[] = x.asDoubles();
 				for (int i = 0; i < tmp.length; i++) {
 					String c = "car" + i;
-					this.carData.add(new CarBean(c, tmp[i]));
+					List<Double> dt = new ArrayList<>();
+					dt.add(tmp[i]);
+					carData.add(new CarBean(c, dt));
+					System.out.println(tmp[i]);
 				}
 				
 			}
@@ -132,12 +134,12 @@ public class RPredictBean {
 			e.printStackTrace();
 		}
 
-		String rt = new Gson().toJson(this.carData);
+		String rt = new Gson().toJson(carData);
+		System.out.println(rt);
 		return rt;
 	}
 	
 	public String deleteAll() {
-		this.carData.clear();
 		this.inputCarWeightString = "Input Car Weight: ";
 		this.showCarWeightString = "";
 		return null;
