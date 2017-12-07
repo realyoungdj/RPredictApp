@@ -1,18 +1,25 @@
 package com.r.predict.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 
+import org.rosuda.REngine.REXP;
+import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
+
+import com.google.gson.Gson;
 
 @ManagedBean(name="rPredictBean")
 public class RPredictBean {
 	private RConnection rc;
-	private List<Double> carWeightList;
+	private List<CarBean> carData;
 	private double carWeight;
 	private String inputCarWeightString;
+	private String showCarWeightString;
+	private String predictResult;
 	
 	public RPredictBean() {
 		this.createRConnection();
@@ -68,7 +75,9 @@ public class RPredictBean {
 	}
 	
 	private void initData() {
-		
+		this.carData = new ArrayList<>();
+		this.inputCarWeightString = "Input Car Weight: ";
+		this.showCarWeightString = "";
 	}
 	
 	
@@ -90,18 +99,61 @@ public class RPredictBean {
 		return this.inputCarWeightString;
 	}
 	
+	public void setShowCarWeightString(String showCarWeightString) {
+		this.showCarWeightString = showCarWeightString;
+	}
 	
-	public String predict() {
-		return null;
+	public String getShowCarWeightString() {
+		return this.showCarWeightString;
+	}
+	
+	public void setPredictResult(String predictResult) {
+		this.predictResult = predictResult;
+	}
+	
+	public String getPredictResult() {
+		try {
+			rc.eval("new.df <- data.frame(Weight=c(1.54, 2.33, 1.70))");
+			REXP x = rc.eval("predict(model, new.df)");
+			if (x.isVector())
+			{
+				double tmp[] = x.asDoubles();
+				for (int i = 0; i < tmp.length; i++) {
+					String c = "car" + i;
+					this.carData.add(new CarBean(c, tmp[i]));
+				}
+				
+			}
+		} catch (RserveException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (REXPMismatchException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		String rt = new Gson().toJson(this.carData);
+		return rt;
 	}
 	
 	public String deleteAll() {
+		this.carData.clear();
+		this.inputCarWeightString = "Input Car Weight: ";
+		this.showCarWeightString = "";
 		return null;
 	}
 	
 	public String addCarWeight() {
+		this.inputCarWeightString += this.getCarWeight() + ", ";
+		if (this.showCarWeightString.equals(""))
+			this.showCarWeightString += this.getCarWeight();
+		else
+			this.showCarWeightString += "," + this.getCarWeight();
+		
 		return null;
 	}
+
+
 	
 
 }

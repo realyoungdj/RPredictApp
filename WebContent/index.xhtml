@@ -7,6 +7,32 @@
 
 <h:head>
 	<title>R Predict</title>
+<script language="JavaScript"
+		src="https://code.highcharts.com/highcharts.js"> </script>
+	<script language="JavaScript">
+	<!-- highcharts javascript-->
+      function showChart(seriesData) 
+      { 
+    	    var myChart = Highcharts.chart('container', {
+    	        chart: {
+    	            type: 'column'
+    	        },
+    	        title: {
+    	            text: 'Predict Mileage'
+    	        },
+    	        xAxis: {
+    	        		categories: ['Cars']
+    	            crosshair: true
+    	        },
+    	        yAxis: {
+    	            title: {
+    	                text: 'Miles per Gallon'
+    	            }
+    	        },
+    	        series: seriesData
+    	    });
+    	}
+    </script>	
 </h:head>
 <h:body>
 <!-- 	Table Filter -->	
@@ -23,9 +49,13 @@
 				</h:commandButton></td>
 		</tr>
 		<tr>
-			<td><h:commandButton id="doPredict" action="#{rPredictBean.predict}"
-					value="Predict">
-				</h:commandButton></td>
+			<td>
+				<h:commandButton value="Show"
+					onclick="showChart(#{rPredictBean.predictResult})">
+					<!-- AJAX -->
+					<f:ajax event="click" />
+				</h:commandButton>
+			</td>
 			<td><h:commandButton id="deleteAll" action="#{rPredictBean.deleteAll}"
 					value="DeleteAll">
 				</h:commandButton></td>				
@@ -37,8 +67,8 @@
 	</h:outputLabel>
 	
 <!-- Show R Predict -->
-	<p>
-	<h:graphicImage id="rPlotImage" value="/images/dynamic/?file=temp.png" rendered="#{rWebBean.renderImageFlag}"/>
-	</p>
+	<h:form>
+		<div id="container" style="width: 100%; height: 600px;"></div>
+	</h:form>
 </h:body>
 </html>
