@@ -11,10 +11,13 @@ import org.rosuda.REngine.Rserve.RserveException;
 public class RPredictBean {
 	private RConnection rc;
 	private List<Double> carWeightList;
+	private double carWeight;
+	private String inputCarWeightString;
 	
 	public RPredictBean() {
 		this.createRConnection();
 		this.initRData();
+		this.initData();
 	}
 	
 	private void createRConnection() {
@@ -64,11 +67,39 @@ public class RPredictBean {
 		
 	}
 	
+	private void initData() {
+		
+	}
+	
+	
+	
+	public void setCarWeight(double carWeight) {
+		this.carWeight = carWeight;
+		
+	}
+	
+	public double getCarWeight() {
+		return this.carWeight;
+	}
+	
+	public void setInputCarWeightString(String inputCarWeightString) {
+		this.inputCarWeightString = inputCarWeightString;
+	}
+	
+	public String getInputCarWeightString() {
+		return this.inputCarWeightString;
+	}
+	
+	
 	public String predict() {
 		return null;
 	}
 	
 	public String deleteAll() {
+		return null;
+	}
+	
+	public String addCarWeight() {
 		return null;
 	}
 	

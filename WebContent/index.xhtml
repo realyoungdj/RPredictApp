@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<title>R Predict</title>
+</h:head>
+<h:body>
+<!-- 	Table Filter -->	
+	<h:form>
+	<table>
+		<tr>
+			<td><h:outputLabel for="input1">
+					<h:outputText id="nameLabel" value="Car Weight" />
+				</h:outputLabel></td>
+			<td><h:inputText id="input1" value="#{rPredictBean.carWeight}"
+					size="20" /></td>
+			<td><h:commandButton id="addCarWeight" action="#{rPredictBean.addCarWeight}"
+					value="Add">
+				</h:commandButton></td>
+		</tr>
+		<tr>
+			<td><h:commandButton id="doPredict" action="#{rPredictBean.predict}"
+					value="Predict">
+				</h:commandButton></td>
+			<td><h:commandButton id="deleteAll" action="#{rPredictBean.deleteAll}"
+					value="DeleteAll">
+				</h:commandButton></td>				
+		</tr>
+	</table>
+	</h:form>
+	<h:outputLabel>
+			<h:outputText id="showInput" value="#{rPredictBean.inputCarWeightString}" />
+	</h:outputLabel>
+	
+<!-- Show R Predict -->
+	<p>
+	<h:graphicImage id="rPlotImage" value="/images/dynamic/?file=temp.png" rendered="#{rWebBean.renderImageFlag}"/>
+	</p>
+</h:body>
+</html>
