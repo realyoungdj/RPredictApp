@@ -39,6 +39,7 @@ public class RPredictBean {
 	}
 
 	private void initRData() {
+		System.out.println("init R data");
 		String rdata = "df <- read.table(text = '\n" + "     Weight	MPG\n" + "1     1.27	30\n" + "2     1.50	27\n"
 				+ "3     2.12	20\n" + "4     1.34	26\n" + "5     1.10	35\n" + "6     2.45	19\n" + "7     1.56	22\n"
 				+ "8     0.98	38\n" + "9     1.26	30\n" + "10    1.39	30\n" + "11    2.11	21\n" + "12    1.46	28\n"
@@ -104,7 +105,7 @@ public class RPredictBean {
 						List<Double> dt = new ArrayList<>();
 						dt.add(Double.parseDouble(df.format(tmp[i])));
 						carData.add(new CarBean(cname, dt));
-						System.out.println(tmp[i]);
+						//System.out.println(tmp[i]);
 					}
 
 				}
